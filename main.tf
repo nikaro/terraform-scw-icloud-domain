@@ -42,7 +42,7 @@ resource "scaleway_domain_record" "spf" {
 
 resource "scaleway_domain_record" "dkim" {
   dns_zone = var.zone
-  name     = "sig1._domainkey.${var.zone}"
+  name     = "sig1._domainkey"
   type     = "CNAME"
   ttl      = var.ttl
   data     = "sig1.dkim.${var.zone}.at.icloudmailadmin.com."
@@ -58,7 +58,7 @@ resource "scaleway_domain_record" "dmarc" {
 
 resource "scaleway_domain_record" "srv_submission" {
   dns_zone = var.zone
-  name     = "_submission._tcp.${var.zone}"
+  name     = "_submission._tcp"
   type     = "SRV"
   ttl      = var.ttl
   data     = "0 1 587 smtp.mail.me.com."
@@ -66,7 +66,7 @@ resource "scaleway_domain_record" "srv_submission" {
 
 resource "scaleway_domain_record" "srv_imaps" {
   dns_zone = var.zone
-  name     = "_imaps._tcp.${var.zone}"
+  name     = "_imaps._tcp"
   type     = "SRV"
   ttl      = var.ttl
   data     = "0 1 993 imap.mail.me.com."
