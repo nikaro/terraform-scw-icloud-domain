@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    aws = {
+    scaleway = {
       source  = "scaleway/scaleway"
       version = "~> 2.45"
     }
