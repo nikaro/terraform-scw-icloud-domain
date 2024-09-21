@@ -13,7 +13,7 @@ jobs:
 
   build:
     name: Build
-    # needs: [ci]
+    needs: [ci]
     runs-on: ubuntu-latest
     permissions:
       contents: read
