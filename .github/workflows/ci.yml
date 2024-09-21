@@ -15,28 +15,12 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    container: ghcr.io/nikaro/gha-terraform-scw-icloud-domain:latest
     permissions:
       contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install tools
-        run: |
-          echo "/home/linuxbrew/.linuxbrew/bin" >> "$GITHUB_PATH"
-          /home/linuxbrew/.linuxbrew/bin/brew install \
-            actionlint \
-            check-jsonschema \
-            fd \
-            go-task \
-            jq \
-            opentofu \
-            prettier \
-            shellcheck \
-            shfmt \
-            tflint \
-            yamlfmt \
-            yamllint \
 
       - name: Lint
         run: task lint --yes
