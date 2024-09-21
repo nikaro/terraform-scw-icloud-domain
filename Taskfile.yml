@@ -1,0 +1,49 @@
+version: '3'
+
+set: [errexit, nounset, pipefail]
+shopt: [globstar]
+
+includes:
+  lint:
+    taskfile: https://github.com/nikaro/meta/raw/main/taskfiles/lint.yml
+    internal: true
+  format:
+    taskfile: https://github.com/nikaro/meta/raw/main/taskfiles/format.yml
+    internal: true
+
+tasks:
+  init:
+    desc: Initialize repositry
+    cmds:
+      - git config core.hooksPath .githooks
+      - git config commit.template .gitmessage
+
+  lint:
+    desc: Run linters
+    cmds:
+      - task: lint:default
+
+  tf:lint:
+    desc: Lint HCL files
+    sources:
+      - ./**/*.tf
+    cmds:
+      - tflint --init
+      - tflint
+
+  tf:sec:
+    desc: Run security scanners
+    cmds:
+      - trivy config .
+
+  format:
+    desc: Run formatters
+    cmds:
+      - task: format:default
+      - task: tf:format
+
+  tf:format:
+    desc: Format HCL files
+    sources:
+      - ./**/*.tf
+    cmd: tofu fmt
