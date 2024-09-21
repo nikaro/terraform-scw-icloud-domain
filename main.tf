@@ -50,7 +50,7 @@ resource "scaleway_domain_record" "dkim" {
 
 resource "scaleway_domain_record" "dmarc" {
   dns_zone = var.zone
-  name     = "_dmarc.${var.zone}"
+  name     = "_dmarc"
   type     = "TXT"
   ttl      = var.ttl
   data     = "v=DMARC1; p=${var.dmarc_policy};"
