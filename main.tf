@@ -10,7 +10,6 @@ terraform {
 
 resource "scaleway_domain_record" "mx1" {
   dns_zone = var.zone
-  name     = var.zone
   type     = "MX"
   ttl      = var.ttl
   data     = "${var.mx_priority} mx01.mail.icloud.com."
@@ -18,15 +17,13 @@ resource "scaleway_domain_record" "mx1" {
 
 resource "scaleway_domain_record" "mx2" {
   dns_zone = var.zone
-  name     = var.zone
   type     = "MX"
   ttl      = var.ttl
-  data     = "${var.mx_priority} mx01.mail.icloud.com."
+  data     = "${var.mx_priority} mx02.mail.icloud.com."
 }
 
 resource "scaleway_domain_record" "verif" {
   dns_zone = var.zone
-  name     = var.zone
   type     = "TXT"
   ttl      = var.ttl
   data     = "apple-domain=${var.domain_verif_data}"
@@ -34,7 +31,6 @@ resource "scaleway_domain_record" "verif" {
 
 resource "scaleway_domain_record" "spf" {
   dns_zone = var.zone
-  name     = var.zone
   type     = "TXT"
   ttl      = var.ttl
   data     = "v=spf1 ${join(" ", [for i in var.spf_includes : "include:${i}"])} ${var.spf_policy}"
