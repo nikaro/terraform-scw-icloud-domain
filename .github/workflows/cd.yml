@@ -56,16 +56,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Dry run
-        uses: commitizen-tools/commitizen-action@0.21.0
-        with:
-          changelog_increment_filename: _changelog.md
-          dry_run: true
-          github_token: ${{ github.token }}
-          no_raise: 3,21
-
       - name: Bump
-        if: env.PREVIOUS_REVISION != env.REVISION
         uses: commitizen-tools/commitizen-action@0.21.0
         with:
           changelog_increment_filename: _changelog.md
