@@ -60,7 +60,7 @@ variable "dmarc_aspf" {
   type        = string
   default     = "r"
   validation {
-    condition     = contains(["r", "s"], var.dmarc_adkim)
+    condition     = contains(["r", "s"], var.dmarc_aspf)
     error_message = "value must be one of: r (for relaxed), s (for strict)"
   }
 }
