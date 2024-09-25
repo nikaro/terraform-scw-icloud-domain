@@ -1,4 +1,10 @@
 
+## 1.1.0 (2024-09-25)
+
+### Feat
+
+- add variables for dmarc options
+
 ## 1.0.4 (2024-09-21)
 
 ### Fix
