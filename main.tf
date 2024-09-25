@@ -9,7 +9,7 @@ terraform {
 }
 
 resource "scaleway_domain_record" "mx" {
-  for_each = toset([1, 2])
+  for_each = toset(["1", "2"])
   dns_zone = var.zone
   type     = "MX"
   ttl      = var.ttl
