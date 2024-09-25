@@ -8,18 +8,12 @@ terraform {
   required_version = ">= 1.0"
 }
 
-resource "scaleway_domain_record" "mx1" {
+resource "scaleway_domain_record" "mx" {
+  for_each = toset([1, 2])
   dns_zone = var.zone
   type     = "MX"
   ttl      = var.ttl
-  data     = "${var.mx_priority} mx01.mail.icloud.com."
-}
-
-resource "scaleway_domain_record" "mx2" {
-  dns_zone = var.zone
-  type     = "MX"
-  ttl      = var.ttl
-  data     = "${var.mx_priority} mx02.mail.icloud.com."
+  data     = "${var.mx_priority} mx0${each.key}.mail.icloud.com."
 }
 
 resource "scaleway_domain_record" "verif" {
@@ -49,7 +43,15 @@ resource "scaleway_domain_record" "dmarc" {
   name     = "_dmarc"
   type     = "TXT"
   ttl      = var.ttl
-  data     = "v=DMARC1; p=${var.dmarc_policy};"
+  data     = "v=DMARC1; p=${var.dmarc_p}; pct=${var.dmarc_pct}; adkim=${var.dmarc_adkim}; aspf=${var.dmarc_aspf}; rua=${var.dmarc_rua}; fo=${var.dmarc_fo}; ruf=${var.dmarc_ruf}"
+}
+
+resource "scaleway_domain_record" "tls_report" {
+  dns_zone = var.zone
+  name     = "_smtp._tls"
+  type     = "TXT"
+  ttl      = var.ttl
+  data     = "v=TLSRPTv1; rua=${var.smtp_tls_rua}"
 }
 
 resource "scaleway_domain_record" "srv_submission" {
