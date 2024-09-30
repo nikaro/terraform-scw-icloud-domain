@@ -28,7 +28,7 @@ variable "spf_policy" {
 variable "dmarc_p" {
   description = "DMARC policy."
   type        = string
-  default     = "reject"
+  default     = "quarantine"
   validation {
     condition     = contains(["none", "quarantine", "reject"], var.dmarc_p)
     error_message = "value must be one of: none, quarantine, reject"

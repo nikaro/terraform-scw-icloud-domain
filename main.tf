@@ -43,10 +43,11 @@ resource "scaleway_domain_record" "dmarc" {
   name     = "_dmarc"
   type     = "TXT"
   ttl      = var.ttl
-  data     = "v=DMARC1; p=${var.dmarc_p}; pct=${var.dmarc_pct}; adkim=${var.dmarc_adkim}; aspf=${var.dmarc_aspf}; rua=${var.dmarc_rua}; fo=${var.dmarc_fo}; ruf=${var.dmarc_ruf}"
+  data     = "v=DMARC1; p=${var.dmarc_p};pct=${var.dmarc_pct};adkim=${var.dmarc_adkim};aspf=${var.dmarc_aspf};${var.dmarc_rua != "" ? format("%s;", var.dmarc_rua) : ""}${var.dmarc_fo != "" ? format("%s;", var.dmarc_fo) : ""}${var.dmarc_ruf != "" ? format("%s;", var.dmarc_ruf) : ""}"
 }
 
 resource "scaleway_domain_record" "tls_report" {
+  count    = var.smtp_tls_rua != "" ? 1 : 0
   dns_zone = var.zone
   name     = "_smtp._tls"
   type     = "TXT"
