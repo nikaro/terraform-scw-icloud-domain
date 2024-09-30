@@ -43,7 +43,7 @@ resource "scaleway_domain_record" "dmarc" {
   name     = "_dmarc"
   type     = "TXT"
   ttl      = var.ttl
-  data     = "v=DMARC1; p=${var.dmarc_p};pct=${var.dmarc_pct};adkim=${var.dmarc_adkim};aspf=${var.dmarc_aspf};${var.dmarc_rua != "" ? format("%s;", var.dmarc_rua) : ""}${var.dmarc_fo != "" ? format("%s;", var.dmarc_fo) : ""}${var.dmarc_ruf != "" ? format("%s;", var.dmarc_ruf) : ""}"
+  data     = "v=DMARC1; p=${var.dmarc_p}; pct=${var.dmarc_pct}; adkim=${var.dmarc_adkim}; aspf=${var.dmarc_aspf};${var.dmarc_rua != "" ? format(" rua=%s;", var.dmarc_rua) : ""}${var.dmarc_fo != "" ? format(" fo=%s;", var.dmarc_fo) : ""}${var.dmarc_ruf != "" ? format(" ruf=%s;", var.dmarc_ruf) : ""}"
 }
 
 resource "scaleway_domain_record" "tls_report" {
