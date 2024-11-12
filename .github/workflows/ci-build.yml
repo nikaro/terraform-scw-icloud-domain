@@ -4,8 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - ./.github/Dockerfile
-      - ./.github/workflows/ci-build.yml
+      - .github/Dockerfile
+      - .github/workflows/ci-build.yml
   schedule:
     - cron: "0 0 * * 1"
   workflow_dispatch:
